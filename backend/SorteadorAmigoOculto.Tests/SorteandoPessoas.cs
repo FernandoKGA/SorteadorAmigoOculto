@@ -1,42 +1,68 @@
+using System.Linq;
+using System;
 using System.Collections.Generic;
 using SorteadorAmigoOculto.Model.Entity;
+using SorteadorAmigoOculto.Business;
 using Xunit;
 using Moq;
+using Bogus;
 
 namespace SorteadorAmigoOculto.Tests
 {
     public class SorteandoPessoas
     {
+        private readonly SorteadorBusiness _sorteadorBusiness = new SorteadorBusiness();
+
         [Theory]
-        public void SorteandoPessoasDaLista()
+        [MemberData(nameof(GetPessoas), parameters: 4)]
+        public void SorteioNaoDeixouNinguemTirarSiMesmo(List<Pessoa> pessoas)
         {
+            var pessoasSorteadas = _sorteadorBusiness.SorteiaAmigoOculto(pessoas);
             
+            // garantir que nenhuma pessoa se autotirou
+            foreach (KeyValuePair<Pessoa,Pessoa> pair in pessoasSorteadas){
+                Assert.NotEqual(pair.Key,pair.Value);
+            }
         }
 
-        public List<Pessoa> GetPessoas()
+        public static IEnumerable<object[]> GetPessoas(int numTests)
         {
-            var list = new List<Pessoa>();
+            if (numTests == 0) throw new ArgumentException("Number of tests has to be greater than or equal to 1.");
 
-            list.AddRange(new List<Pessoa>
+            var listas = new List<object[]>();
+
+            for(int i=0; i<numTests; i++){
+                listas.Add(GenerateListaComMaisDeDuasPessoas());
+            }
+            
+            return listas;
+        }
+
+        public static object[] GenerateListaComMaisDeDuasPessoas()
+        {
+            var randomizer = new Randomizer();
+            int quantidadePessoas = randomizer.Int(2,100);
+
+            var lista = new List<Pessoa>();
+
+            for(int i=0; i<quantidadePessoas; i++){
+                lista.Add(FakePessoa());
+            }
+
+            return new object[] 
             {
-                new Pessoa
-                {
-                    Email = "fake@gmail.com",
-                    Nome = "Fake Fake"
-                },
-                new Pessoa 
-                {
-                    Email = "idontgetit@hotmail.com",
-                    Nome = "I dont get it"
-                },
-                new Pessoa
-                {
-                    Email = "teste@gmail.com",
-                    Nome = "Teste do teste"
-                }
-            });
+                lista
+            };
+        }
 
-            return list;
+        public static Pessoa FakePessoa()
+        {
+            var testPessoa = new Faker<Pessoa>("pt_BR")
+                .RuleFor(p => p.Nome, f => f.Name.FullName())
+                .RuleFor(p => p.Email, 
+                    (f,p) => f.Internet.Email(p.Nome.Split(" ").First(),p.Nome.Split(" ").Last()));
+
+            return testPessoa.Generate();
         }
     }
 }

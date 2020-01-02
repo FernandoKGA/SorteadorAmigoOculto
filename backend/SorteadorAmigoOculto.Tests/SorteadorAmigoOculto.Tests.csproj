@@ -9,8 +9,10 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0"/>
     <PackageReference Include="coverlet.collector" Version="1.0.1"/>
     <PackageReference Include="Moq" Version="4.13.1"/>
+    <PackageReference Include="Bogus" Version="28.4.4"/>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Model\SorteadorAmigoOculto.Model.csproj"/>
+    <ProjectReference Include="..\SorteadorAmigoOculto.Business\SorteadorAmigoOculto.Business.csproj"/>
   </ItemGroup>
 </Project>
