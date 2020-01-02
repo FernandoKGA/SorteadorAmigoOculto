@@ -1,0 +1,16 @@
+#nao entrara no projeto
+**/frontend
+**/mobile
+
+#appsettings
+**/SorteadorAmigoOculto.Services/SorteadorAmigoOculto.API/appsettings.json
+**/SorteadorAmigoOculto.Services/SorteadorAmigoOculto.API/appsettings.Development.json
+
+#obj
+**/*/obj/*
+
+#bin
+**/*/bin/*
+
+#.vscode
+**/.vscode
