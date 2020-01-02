@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SorteadorAmigoOculto.Console
+namespace SorteadorAmigoOculto.ConsoleApp
 {
     class Program
     {
