@@ -14,10 +14,10 @@ namespace SorteadorAmigoOculto.Tests
         private readonly SorteadorBusiness _sorteadorBusiness = new SorteadorBusiness();
 
         [Theory]
-        [MemberData(nameof(GetPessoas), parameters: 4)]
+        [MemberData(nameof(GetPessoas), parameters: 5)]
         public void SorteioNaoDeixouNinguemTirarSiMesmo(List<Pessoa> pessoas)
         {
-            var pessoasSorteadas = _sorteadorBusiness.SorteiaAmigoOculto(pessoas);
+            var pessoasSorteadas = _sorteadorBusiness.SortearAmigoOculto(pessoas);
             
             // garantir que nenhuma pessoa se tirou a si mesma
             foreach (KeyValuePair<Pessoa,Pessoa> pair in pessoasSorteadas){
@@ -28,14 +28,14 @@ namespace SorteadorAmigoOculto.Tests
         [Fact]
         public void SorteioNaoAceitaListaNulaDePessoas()
         {
-            Assert.Throws<ArgumentNullException>(() => _sorteadorBusiness.SorteiaAmigoOculto(null));
+            Assert.Throws<ArgumentNullException>(() => _sorteadorBusiness.SortearAmigoOculto(null));
         }
 
         [Fact]
         public void SorteioComListaSemNenhumaPessoa()
         {
             var pessoas = GenerateListaSemPessoas();
-            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SorteiaAmigoOculto(pessoas));
+            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SortearAmigoOculto(pessoas));
             Assert.True(ex.Message.Equals("The list passed as argument is empty."));
         }
 
@@ -43,7 +43,7 @@ namespace SorteadorAmigoOculto.Tests
         public void SorteioComListaDeUmaPessoa()
         {
             var pessoas = GenerateListaComUmaPessoa();
-            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SorteiaAmigoOculto(pessoas));
+            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SortearAmigoOculto(pessoas));
             Assert.True(ex.Message.Equals("The list passed has only one person."));
         }
 
@@ -51,8 +51,16 @@ namespace SorteadorAmigoOculto.Tests
         public void SorteioComListaDeDuasPessoasComUmaNula()
         {
             var pessoas = GenerateListaComDuasPessoasComUmaNula();
-            var ex = Assert.Throws<NullReferenceException>(() => _sorteadorBusiness.SorteiaAmigoOculto(pessoas));
+            var ex = Assert.Throws<NullReferenceException>(() => _sorteadorBusiness.SortearAmigoOculto(pessoas));
             Assert.True(ex.Message.Equals("The list has a null object inside of it."));
+        }
+
+        [Fact]
+        public void SorteioComListaDeDuasPessoasComMesmoEmail()
+        {
+            var pessoas = GenerateListaComDuasPessoasComMesmoEmail();
+            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SortearAmigoOculto(pessoas));
+            Assert.True(ex.Message.Equals("The list contains a duplicated e-mail."));
         }
 
         public static Pessoa FakePessoa()
@@ -88,6 +96,18 @@ namespace SorteadorAmigoOculto.Tests
             };
         }
 
+        public static List<Pessoa> GenerateListaComDuasPessoasComMesmoEmail()
+        {
+            var pessoa = FakePessoa();
+            var pessoa2 = FakePessoa();
+            pessoa2.Email = pessoa.Email;
+            return new List<Pessoa>
+            {
+                pessoa,
+                pessoa2
+            };
+        }
+
         public static IEnumerable<object[]> GetPessoas(int numTests)
         {
             if (numTests == 0) throw new ArgumentException("Number of tests has to be greater than or equal to 1.");
@@ -107,9 +127,13 @@ namespace SorteadorAmigoOculto.Tests
             int quantidadePessoas = randomizer.Int(2,100);
 
             var lista = new List<Pessoa>();
-
+            var dictio = new Dictionary<string,Pessoa>();
             for(int i=0; i<quantidadePessoas; i++){
-                lista.Add(FakePessoa());
+                Pessoa pessoa = FakePessoa();
+                if(!dictio.ContainsKey(pessoa.Email)) {
+                    dictio.Add(pessoa.Email,null);
+                    lista.Add(pessoa);
+                }
             }
 
             return new object[] 

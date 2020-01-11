@@ -10,11 +10,13 @@ namespace SorteadorAmigoOculto.Business
 {
     public class SorteadorBusiness : ISorteadorBusiness
     {
-        public Dictionary<Pessoa, Pessoa> SorteiaAmigoOculto(List<Pessoa> pessoas)
+        public Dictionary<Pessoa, Pessoa> SortearAmigoOculto(List<Pessoa> pessoas){
+            ListaPessoasValidator.ChecaListaPessoas(pessoas);
+            return SorteiaAmigoOculto(pessoas);
+        }
+        private Dictionary<Pessoa, Pessoa> SorteiaAmigoOculto(List<Pessoa> pessoas)
         {
-            ChecaLista(pessoas);
-
-            Dictionary<Pessoa,Pessoa> listaSorteada = new Dictionary<Pessoa, Pessoa>();
+            var listaSorteada = new Dictionary<Pessoa, Pessoa>();
             
             var pessoasASeremTiradas = pessoas.Select(x => x).ToList();
             
@@ -33,21 +35,6 @@ namespace SorteadorAmigoOculto.Business
             }
 
             return listaSorteada;
-        }
-
-        private void ChecaLista(List<Pessoa> pessoas)
-        {
-            switch(pessoas)
-            {
-                ListaPessoasValidator.IsListaNula(pessoas) => throw new ArgumentNullException(nameof(pessoas))
-            };
-            
-            if (ListaPessoasValidator.IsListaNula(pessoas)) throw new ArgumentNullException(nameof(pessoas));
-            if (ListaPessoasValidator.IsListaVazia(pessoas)) throw new InvalidOperationException("The list passed as argument is empty.");
-            if (ListaPessoasValidator.IsSoUmaPessoaNaLista(pessoas)) throw new InvalidOperationException("The list passed has only one person.");
-            if (ListaPessoasValidator.ContainsNullNaLista(pessoas)) throw new NullReferenceException("The list has a null object inside of it.");
-
-            
         }
     }
 }

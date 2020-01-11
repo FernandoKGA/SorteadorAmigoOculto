@@ -5,6 +5,6 @@ namespace SorteadorAmigoOculto.Interfaces.Business
 {
     public interface ISorteadorBusiness
     {
-        Dictionary<Pessoa,Pessoa> SorteiaAmigoOculto(List<Pessoa> pessoas);
+        Dictionary<Pessoa,Pessoa> SortearAmigoOculto(List<Pessoa> pessoas);
     }
 }
