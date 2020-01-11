@@ -23,6 +23,10 @@ namespace SorteadorAmigoOculto.Business
                 throw new InvalidOperationException("The list passed has only one person.");
             }
 
+            if(pessoas.Contains(null)){
+                throw new NullReferenceException("The list has a null object inside of it.");
+            }
+
             Dictionary<Pessoa,Pessoa> listaSorteada = new Dictionary<Pessoa, Pessoa>();
             
             var pessoasASeremTiradas = pessoas.Select(x => x).ToList();

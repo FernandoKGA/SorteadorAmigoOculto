@@ -31,6 +31,30 @@ namespace SorteadorAmigoOculto.Tests
             Assert.Throws<ArgumentNullException>(() => _sorteadorBusiness.SorteiaAmigoOculto(null));
         }
 
+        [Fact]
+        public void SorteioComListaSemNenhumaPessoa()
+        {
+            var pessoas = GenerateListaSemPessoas();
+            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SorteiaAmigoOculto(pessoas));
+            Assert.True(ex.Message.Equals("The list passed as argument is empty."));
+        }
+
+        [Fact]
+        public void SorteioComListaDeUmaPessoa()
+        {
+            var pessoas = GenerateListaComUmaPessoa();
+            var ex = Assert.Throws<InvalidOperationException>(() => _sorteadorBusiness.SorteiaAmigoOculto(pessoas));
+            Assert.True(ex.Message.Equals("The list passed has only one person."));
+        }
+
+        [Fact]
+        public void SorteioComListaDeDuasPessoasComUmaNula()
+        {
+            var pessoas = GenerateListaComDuasPessoasComUmaNula();
+            var ex = Assert.Throws<NullReferenceException>(() => _sorteadorBusiness.SorteiaAmigoOculto(pessoas));
+            Assert.True(ex.Message.Equals("The list has a null object inside of it."));
+        }
+
         public static IEnumerable<object[]> GetPessoas(int numTests)
         {
             if (numTests == 0) throw new ArgumentException("Number of tests has to be greater than or equal to 1.");
@@ -42,6 +66,28 @@ namespace SorteadorAmigoOculto.Tests
             }
             
             return listas;
+        }
+
+        public static List<Pessoa> GenerateListaSemPessoas()
+        {
+            return new List<Pessoa>();
+        }
+
+        public static List<Pessoa> GenerateListaComUmaPessoa()
+        {
+            return new List<Pessoa>
+            {
+                FakePessoa()
+            };
+        }
+
+        public static List<Pessoa> GenerateListaComDuasPessoasComUmaNula()
+        {
+            return new List<Pessoa>
+            {
+                null,
+                FakePessoa()
+            };
         }
 
         public static object[] GenerateListaComMaisDeDuasPessoas()
