@@ -55,17 +55,15 @@ namespace SorteadorAmigoOculto.Tests
             Assert.True(ex.Message.Equals("The list has a null object inside of it."));
         }
 
-        public static IEnumerable<object[]> GetPessoas(int numTests)
+        public static Pessoa FakePessoa()
         {
-            if (numTests == 0) throw new ArgumentException("Number of tests has to be greater than or equal to 1.");
+            // locales com '_'
+            var testPessoa = new Faker<Pessoa>("pt_BR")
+                .RuleFor(p => p.Nome, f => f.Name.FullName())
+                .RuleFor(p => p.Email, 
+                    (f,p) => f.Internet.Email(p.Nome.Split(" ").First(),p.Nome.Split(" ").Last()));
 
-            var listas = new List<object[]>();
-
-            for(int i=0; i<numTests; i++){
-                listas.Add(GenerateListaComMaisDeDuasPessoas());
-            }
-            
-            return listas;
+            return testPessoa.Generate();
         }
 
         public static List<Pessoa> GenerateListaSemPessoas()
@@ -90,6 +88,19 @@ namespace SorteadorAmigoOculto.Tests
             };
         }
 
+        public static IEnumerable<object[]> GetPessoas(int numTests)
+        {
+            if (numTests == 0) throw new ArgumentException("Number of tests has to be greater than or equal to 1.");
+
+            var listas = new List<object[]>();
+
+            for(int i=0; i<numTests; i++){
+                listas.Add(GenerateListaComMaisDeDuasPessoas());
+            }
+            
+            return listas;
+        }
+
         public static object[] GenerateListaComMaisDeDuasPessoas()
         {
             var randomizer = new Randomizer();
@@ -105,17 +116,6 @@ namespace SorteadorAmigoOculto.Tests
             {
                 lista
             };
-        }
-
-        public static Pessoa FakePessoa()
-        {
-            // locales com '_'
-            var testPessoa = new Faker<Pessoa>("pt_BR")
-                .RuleFor(p => p.Nome, f => f.Name.FullName())
-                .RuleFor(p => p.Email, 
-                    (f,p) => f.Internet.Email(p.Nome.Split(" ").First(),p.Nome.Split(" ").Last()));
-
-            return testPessoa.Generate();
         }
     }
 }

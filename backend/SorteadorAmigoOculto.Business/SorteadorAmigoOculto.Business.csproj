@@ -3,6 +3,7 @@
     <ProjectReference Include="..\SorteadorAmigoOculto.Interfaces\SorteadorAmigoOculto.Interfaces.csproj" />
     <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Model\SorteadorAmigoOculto.Model.csproj" />
     <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Helpers\SorteadorAmigoOculto.Helpers.csproj" />
+    <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Validators\SorteadorAmigoOculto.Validators.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
