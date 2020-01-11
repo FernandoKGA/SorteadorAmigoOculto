@@ -1,9 +1,10 @@
-using System.Linq;
+using SorteadorAmigoOculto.API.Business.Interfaces;
+using SorteadorAmigoOculto.Helpers;
+using SorteadorAmigoOculto.Models.Entity;
+
 using System;
 using System.Collections.Generic;
-using SorteadorAmigoOculto.Interfaces.Business;
-using SorteadorAmigoOculto.Model.Entity;
-using SorteadorAmigoOculto.Helpers;
+using System.Linq;
 
 namespace SorteadorAmigoOculto.Business
 {
@@ -11,31 +12,35 @@ namespace SorteadorAmigoOculto.Business
     {
         public Dictionary<Pessoa, Pessoa> SorteiaAmigoOculto(List<Pessoa> pessoas)
         {
-            if (pessoas == null){
+            if (pessoas == null)
+            {
                 throw new ArgumentNullException(nameof(pessoas));
             }
 
-            if (pessoas.Count == 0){
+            if (pessoas.Count == 0)
+            {
                 throw new InvalidOperationException("The list passed as argument is empty.");
             }
 
-            if (pessoas.Count == 1){
+            if (pessoas.Count == 1)
+            {
                 throw new InvalidOperationException("The list passed has only one person.");
             }
 
-            Dictionary<Pessoa,Pessoa> listaSorteada = new Dictionary<Pessoa, Pessoa>();
-            
+            var listaSorteada = new Dictionary<Pessoa, Pessoa>();
+
             var pessoasASeremTiradas = pessoas.Select(x => x).ToList();
-            
-            while(pessoas.Count != 0){
+
+            while (pessoas.Count != 0)
+            {
                 pessoas.Shuffle();
                 pessoasASeremTiradas.Shuffle();
                 Pessoa pessoaTirou = pessoas.First();
                 Pessoa pessoaTirada = pessoasASeremTiradas.First();
 
-                if(pessoaTirou.Equals(pessoaTirada)) continue;
+                if (pessoaTirou.Equals(pessoaTirada)) continue;
 
-                listaSorteada.Add(pessoaTirou,pessoaTirada);
+                listaSorteada.Add(pessoaTirou, pessoaTirada);
 
                 pessoas.Remove(pessoaTirou);
                 pessoasASeremTiradas.Remove(pessoaTirada);
