@@ -19,10 +19,16 @@ namespace SorteadorAmigoOculto.Tests
         {
             var pessoasSorteadas = _sorteadorBusiness.SorteiaAmigoOculto(pessoas);
             
-            // garantir que nenhuma pessoa se autotirou
+            // garantir que nenhuma pessoa se tirou a si mesma
             foreach (KeyValuePair<Pessoa,Pessoa> pair in pessoasSorteadas){
                 Assert.NotEqual(pair.Key,pair.Value);
             }
+        }
+
+        [Fact]
+        public void SorteioNaoAceitaListaNulaDePessoas()
+        {
+            Assert.Throws<ArgumentNullException>(() => _sorteadorBusiness.SorteiaAmigoOculto(null));
         }
 
         public static IEnumerable<object[]> GetPessoas(int numTests)
@@ -57,6 +63,7 @@ namespace SorteadorAmigoOculto.Tests
 
         public static Pessoa FakePessoa()
         {
+            // locales com '_'
             var testPessoa = new Faker<Pessoa>("pt_BR")
                 .RuleFor(p => p.Nome, f => f.Name.FullName())
                 .RuleFor(p => p.Email, 
