@@ -2,9 +2,9 @@ using System.Linq;
 using System;
 using System.Collections.Generic;
 using SorteadorAmigoOculto.Interfaces.Business;
-using SorteadorAmigoOculto.Model.Entity;
-using SorteadorAmigoOculto.Helpers;
-using SorteadorAmigoOculto.Validators;
+using SorteadorAmigoOculto.Kernel.Model.Entity;
+using SorteadorAmigoOculto.Kernel.Helpers;
+using SorteadorAmigoOculto.Kernel.Validators;
 
 namespace SorteadorAmigoOculto.Business
 {

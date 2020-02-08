@@ -1,4 +1,4 @@
-namespace SorteadorAmigoOculto.Model.DTO
+namespace SorteadorAmigoOculto.Kernel.Model.DTO
 {
     public class PessoaDTO
     {

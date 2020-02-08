@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using SorteadorAmigoOculto.Model.Entity;
+using SorteadorAmigoOculto.Kernel.Model.Entity;
 
-namespace SorteadorAmigoOculto.Validators
+namespace SorteadorAmigoOculto.Kernel.Validators
 {
     public class ListaPessoasValidator
     {

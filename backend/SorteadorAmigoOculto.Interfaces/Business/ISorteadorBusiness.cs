@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using SorteadorAmigoOculto.Model.Entity;
+using SorteadorAmigoOculto.Kernel.Model.Entity;
 
 namespace SorteadorAmigoOculto.Interfaces.Business
 {

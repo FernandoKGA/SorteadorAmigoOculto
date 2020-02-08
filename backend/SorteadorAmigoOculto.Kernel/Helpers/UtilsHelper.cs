@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace SorteadorAmigoOculto.Helpers
+namespace SorteadorAmigoOculto.Kernel.Helpers
 {
     public static class UtilsHelper
     {

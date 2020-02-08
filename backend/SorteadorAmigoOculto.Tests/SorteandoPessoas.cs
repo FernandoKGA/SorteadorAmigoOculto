@@ -1,7 +1,7 @@
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using SorteadorAmigoOculto.Model.Entity;
+using SorteadorAmigoOculto.Kernel.Model.Entity;
 using SorteadorAmigoOculto.Business;
 using Xunit;
 using Moq;

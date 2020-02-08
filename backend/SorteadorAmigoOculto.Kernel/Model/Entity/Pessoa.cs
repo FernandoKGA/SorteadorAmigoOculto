@@ -1,4 +1,4 @@
-namespace SorteadorAmigoOculto.Model.Entity
+namespace SorteadorAmigoOculto.Kernel.Model.Entity
 {
     public class Pessoa
     {

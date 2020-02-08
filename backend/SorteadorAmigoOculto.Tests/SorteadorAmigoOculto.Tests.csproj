@@ -12,7 +12,7 @@
     <PackageReference Include="Bogus" Version="28.4.4"/>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Model\SorteadorAmigoOculto.Model.csproj"/>
+    <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Kernel.csproj"/>
     <ProjectReference Include="..\SorteadorAmigoOculto.Business\SorteadorAmigoOculto.Business.csproj"/>
   </ItemGroup>
 </Project>
