@@ -4,7 +4,7 @@ using SorteadorAmigoOculto.Kernel.Model.Entity;
 
 namespace SorteadorAmigoOculto.Kernel.Validators
 {
-    public class ListaPessoasValidator
+    public class PessoaValidator
     {
         public static bool IsListaNula(List<Pessoa> pessoas) => pessoas == null;
         public static bool IsListaVazia(List<Pessoa> pessoas) => pessoas.Count == 0;

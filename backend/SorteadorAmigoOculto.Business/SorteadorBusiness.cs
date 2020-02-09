@@ -11,7 +11,7 @@ namespace SorteadorAmigoOculto.Business
     public class SorteadorBusiness : ISorteadorBusiness
     {
         public Dictionary<Pessoa, Pessoa> SortearAmigoOculto(List<Pessoa> pessoas){
-            ListaPessoasValidator.ChecaListaPessoas(pessoas);
+            PessoaValidator.ChecaListaPessoas(pessoas);
             return SorteiaAmigoOculto(pessoas);
         }
         private Dictionary<Pessoa, Pessoa> SorteiaAmigoOculto(List<Pessoa> pessoas)

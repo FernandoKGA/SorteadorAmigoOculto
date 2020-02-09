@@ -7,6 +7,21 @@ namespace SorteadorAmigoOculto.Kernel.Mappers
 {
     public static class PessoaMapper
     {
+        public static Pessoa ToPessoaEntity(PessoaDTO pessoaDTO){
+            return new Pessoa{
+                Email = pessoaDTO.Email,
+                Nome = pessoaDTO.Nome
+            };
+        }
+
+        public static List<Pessoa> ToListPessoaEntity(List<PessoaDTO> listaPessoasDTO){
+            var listaPessoas = new List<Pessoa>();
+            foreach(PessoaDTO pessoaDTO in listaPessoasDTO){
+                listaPessoas.Add(ToPessoaEntity(pessoaDTO));
+            }
+            return listaPessoas;
+        }
+
         public static PessoaDTO ToPessoaDTO(Pessoa pessoa){
             return new PessoaDTO{
                 Email = pessoa.Email,

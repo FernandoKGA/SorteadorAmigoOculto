@@ -66,6 +66,44 @@ namespace SorteadorAmigoOculto.Tests
             }
         }
 
+        [Fact]
+        public void ToPessoaEntity(){
+            //Arrange
+            var pessoaFakeDTO = MethodsForTesting.FakePessoaDTO();
+            
+            //Act
+            var pessoa = PessoaMapper.ToPessoaEntity(pessoaFakeDTO);
+
+            //Assert
+            Assert.True(VerificaSeTemMesmoNomeEEmail(pessoa,pessoaFakeDTO));
+        }
+
+        [Fact]
+        public void ToListPessoaEntity(){
+            //Arrange
+            var listaPessoasDTO = new List<PessoaDTO>();
+            for(int i = 0; i < 5; i++){
+                listaPessoasDTO.Add(MethodsForTesting.FakePessoaDTO());
+            }
+            
+            //Act
+            var listaPessoas = PessoaMapper.ToListPessoaEntity(listaPessoasDTO);
+
+            //Assert
+            foreach(var pessoaDTO in listaPessoasDTO){
+                var pessoa = BuscaSeTemPessoaRegistradaNaLista(pessoaDTO, listaPessoas);
+                Assert.True(VerificaSeTemMesmoNomeEEmail(pessoa,pessoaDTO));    
+            }
+        }
+
+        private Pessoa BuscaSeTemPessoaRegistradaNaLista(
+            PessoaDTO pessoaDTO,
+            List<Pessoa> listaPessoas
+        ){
+            return listaPessoas.AsQueryable().Where(x => 
+            VerificaSeTemMesmoNomeEEmail(x, pessoaDTO)).ToList().Single();
+        }
+        
         private KeyValuePair<PessoaDTO,PessoaDTO> BuscaSeTemPessoaRegistradaNoDicionario(
             KeyValuePair<Pessoa,Pessoa> pessoa,
             Dictionary<PessoaDTO,PessoaDTO> dicionarioPessoaDTO
