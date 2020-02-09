@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.RegularExpressions;
 using SorteadorAmigoOculto.Kernel.Model.Entity;
 
 namespace SorteadorAmigoOculto.Kernel.Validators
@@ -31,6 +32,11 @@ namespace SorteadorAmigoOculto.Kernel.Validators
             if (IsSoUmaPessoaNaLista(pessoas)) throw new InvalidOperationException("The list passed has only one person.");
             if (ContainsNullNaLista(pessoas)) throw new NullReferenceException("The list has a null object inside of it.");
             if (ContainsEmailDuplicadoNaLista(pessoas)) throw new InvalidOperationException("The list contains a duplicated e-mail.");
+        }
+
+        public static bool IsEmailValido(string email){
+            string regexPattern = @"^(?("+'"'+")("+'"'+@".+?(?<!\\)"+'"'+@"@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
+            return Regex.IsMatch(email, regexPattern, RegexOptions.IgnoreCase);
         }
     }
 }

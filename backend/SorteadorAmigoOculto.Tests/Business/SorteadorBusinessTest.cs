@@ -1,10 +1,8 @@
-using System.Linq;
 using System;
 using System.Collections.Generic;
 using SorteadorAmigoOculto.Kernel.Model.Entity;
 using SorteadorAmigoOculto.Business;
 using Xunit;
-using Moq;
 using Bogus;
 
 namespace SorteadorAmigoOculto.Tests
