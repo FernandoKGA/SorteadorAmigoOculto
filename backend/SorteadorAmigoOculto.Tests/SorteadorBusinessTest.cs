@@ -9,7 +9,7 @@ using Bogus;
 
 namespace SorteadorAmigoOculto.Tests
 {
-    public class SorteandoPessoas
+    public class SorteadorBusinessTest
     {
         private readonly SorteadorBusiness _sorteadorBusiness = new SorteadorBusiness();
 
@@ -63,17 +63,6 @@ namespace SorteadorAmigoOculto.Tests
             Assert.True(ex.Message.Equals("The list contains a duplicated e-mail."));
         }
 
-        public static Pessoa FakePessoa()
-        {
-            // locales com '_'
-            var testPessoa = new Faker<Pessoa>("pt_BR")
-                .RuleFor(p => p.Nome, f => f.Name.FullName())
-                .RuleFor(p => p.Email, 
-                    (f,p) => f.Internet.Email(p.Nome.Split(" ").First(),p.Nome.Split(" ").Last()));
-
-            return testPessoa.Generate();
-        }
-
         public static List<Pessoa> GenerateListaSemPessoas()
         {
             return new List<Pessoa>();
@@ -83,7 +72,7 @@ namespace SorteadorAmigoOculto.Tests
         {
             return new List<Pessoa>
             {
-                FakePessoa()
+                MethodsForTesting.FakePessoa()
             };
         }
 
@@ -92,14 +81,14 @@ namespace SorteadorAmigoOculto.Tests
             return new List<Pessoa>
             {
                 null,
-                FakePessoa()
+                MethodsForTesting.FakePessoa()
             };
         }
 
         public static List<Pessoa> GenerateListaComDuasPessoasComMesmoEmail()
         {
-            var pessoa = FakePessoa();
-            var pessoa2 = FakePessoa();
+            var pessoa = MethodsForTesting.FakePessoa();
+            var pessoa2 = MethodsForTesting.FakePessoa();
             pessoa2.Email = pessoa.Email;
             return new List<Pessoa>
             {
@@ -129,17 +118,14 @@ namespace SorteadorAmigoOculto.Tests
             var lista = new List<Pessoa>();
             var dictio = new Dictionary<string,Pessoa>();
             for(int i=0; i<quantidadePessoas; i++){
-                Pessoa pessoa = FakePessoa();
+                Pessoa pessoa = MethodsForTesting.FakePessoa();
                 if(!dictio.ContainsKey(pessoa.Email)) {
                     dictio.Add(pessoa.Email,null);
                     lista.Add(pessoa);
                 }
             }
 
-            return new object[] 
-            {
-                lista
-            };
+            return MethodsForTesting.ToObjectArray(lista);
         }
     }
 }
