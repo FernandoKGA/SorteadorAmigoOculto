@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using SorteadorAmigoOculto.Kernel.Model.Entity;
+using System.Net.Mail;
 
 namespace SorteadorAmigoOculto.Kernel.Validators
 {
@@ -35,8 +36,15 @@ namespace SorteadorAmigoOculto.Kernel.Validators
         }
 
         public static bool IsEmailValido(string email){
-            string regexPattern = @"^(?("+'"'+")("+'"'+@".+?(?<!\\)"+'"'+@"@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
-            return Regex.IsMatch(email, regexPattern, RegexOptions.IgnoreCase);
+            // string regexPattern = @"^(?("+'"'+")("+'"'+@".+?(?<!\\)"+'"'+@"@)|(([0-9a-z]((\.(?!\.))|[-!#\$%&'\*\+/=\?\^`\{\}\|~\w])*)(?<=[0-9a-z])@))(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-\w]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$";
+            // return Regex.IsMatch(email, regexPattern, RegexOptions.IgnoreCase);
+            try{
+                MailAddress mail = new MailAddress(email);
+                return true;
+            }
+            catch(FormatException){
+                return false;
+            }
         }
     }
 }
