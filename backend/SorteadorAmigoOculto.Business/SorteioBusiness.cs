@@ -6,7 +6,7 @@ using SorteadorAmigoOculto.Kernel.Model.Entity;
 
 namespace SorteadorAmigoOculto.Business
 {
-    public class SorteioBusiness
+    public class SorteioBusiness : ISorteioBusiness
     {
         private readonly ISorteadorBusiness sorteadorBusiness;
         public SorteioBusiness(ISorteadorBusiness sorteadorBusiness)
