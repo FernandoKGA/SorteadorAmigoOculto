@@ -1,7 +1,11 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
-    <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Kernel.csproj" />
-    <ProjectReference Include="..\SorteadorAmigoOculto.Interfaces\SorteadorAmigoOculto.Interfaces.csproj" />
+    <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Kernel.csproj"/>
+    <ProjectReference Include="..\SorteadorAmigoOculto.Interfaces\SorteadorAmigoOculto.Interfaces.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Google.Apis.Gmail.v1" Version="1.44.0.1859"/>
+    <PackageReference Include="MimeKit" Version="2.5.1"/>
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
