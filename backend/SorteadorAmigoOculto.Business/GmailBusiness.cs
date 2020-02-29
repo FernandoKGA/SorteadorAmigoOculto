@@ -24,7 +24,7 @@ namespace SorteadorAmigoOculto.Business
 
             foreach (KeyValuePair<PessoaDTO,PessoaDTO> pessoas in sorteioDTO.PessoasSorteadas)
             {
-                var mailMessage = EmailHelper.CriarMensagem("sorteadoramigoocult@gmail.com", pessoas,sorteioDTO.IdentificadorSorteio);
+                var mailMessage = EmailHelper.CriarMensagem("sorteadoramigooculto@gmail.com", pessoas,sorteioDTO.IdentificadorSorteio);
                 
                 var mimeMessage = MimeKit.MimeMessage.CreateFromMailMessage(mailMessage);
 

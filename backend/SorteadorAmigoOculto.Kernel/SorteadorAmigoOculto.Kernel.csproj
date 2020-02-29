@@ -3,5 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
-
+  <ItemGroup>
+    <None Update="EmailTemplates\SorteioEmail.html" CopyToOutputDirectory="PreserveNewest" />
+  </ItemGroup>
 </Project>
