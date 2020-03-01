@@ -23,7 +23,20 @@ namespace SorteadorAmigoOculto.Tests.Configuration
             var result = System.Text.Encoding.ASCII.GetString(byteArray);
 
             //Assert
+            Assert.NotNull(result);
+        }
+
+        [Fact]
+        public void TestaGetEmailFrom()
+        {
+            //Arrange
+            var config = new EmailConfig();
             
+            //Act
+            var result = config.GetEmailFrom();
+
+            //Assert
+            Assert.NotNull(result);
         }
     }
 }

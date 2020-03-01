@@ -10,8 +10,8 @@ namespace SorteadorAmigoOculto.Configuration
         private readonly IConfiguration emailConfig;
         public EmailConfig()
         {
-            emailCredentials = new FileStream(Path.Combine(Environment.CurrentDirectory,"EmailConfig/credentials.json"), FileMode.Open, FileAccess.Read);
-            emailConfig = new ConfigurationBuilder().AddJsonFile(Path.Combine(Environment.CurrentDirectory,"EmailConfig/emailConfig.json")).Build();
+            emailCredentials = new FileStream("EmailConfig/credentials.json", FileMode.Open, FileAccess.Read);
+            emailConfig = new ConfigurationBuilder().AddJsonFile("EmailConfig/emailConfig.json").Build();
         }
 
         public string GetEmailFrom()
