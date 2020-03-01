@@ -14,17 +14,24 @@ using System.Net.Mail;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using SorteadorAmigoOculto.Configuration;
 
 namespace SorteadorAmigoOculto.Business
 {
     public class GmailBusiness : IEmailBusiness
     {
+        private readonly EmailConfig config;
+        GmailBusiness()
+        {
+            config = new EmailConfig();
+        }
         public void EnviaSorteio(SorteioDTO sorteioDTO){
             var service = CreateGmailService();
 
             foreach (KeyValuePair<PessoaDTO,PessoaDTO> pessoas in sorteioDTO.PessoasSorteadas)
             {
-                var mailMessage = EmailHelper.CriarMensagem("sorteadoramigooculto@gmail.com", pessoas,sorteioDTO.IdentificadorSorteio);
+                var mailMessage = EmailHelper.CriarMensagem(config.GetEmailFrom(), pessoas, sorteioDTO.IdentificadorSorteio);
                 
                 var mimeMessage = MimeKit.MimeMessage.CreateFromMailMessage(mailMessage);
 
@@ -54,8 +61,9 @@ namespace SorteadorAmigoOculto.Business
 
             UserCredential credential;
 
-            using (var stream =
-                new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+            // using (var stream =
+            //     new FileStream("credentials.json", FileMode.Open, FileAccess.Read))
+            using (var stream = config.GetEmailCredentialsFile())
             {
                 // The file token.json stores the user's access and refresh tokens, and is created
                 // automatically when the authorization flow completes for the first time.

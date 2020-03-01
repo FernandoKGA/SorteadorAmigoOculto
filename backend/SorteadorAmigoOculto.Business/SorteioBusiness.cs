@@ -9,9 +9,11 @@ namespace SorteadorAmigoOculto.Business
     public class SorteioBusiness : ISorteioBusiness
     {
         private readonly ISorteadorBusiness sorteadorBusiness;
-        public SorteioBusiness(ISorteadorBusiness sorteadorBusiness)
+        private readonly IEmailBusiness emailBusiness;
+        public SorteioBusiness(ISorteadorBusiness sorteadorBusiness, IEmailBusiness emailBusiness)
         {
             this.sorteadorBusiness = sorteadorBusiness;
+            this.emailBusiness = emailBusiness;
         }
         
         private Sorteio GeraSorteio(Dictionary<Pessoa,Pessoa> dicionarioPessoas){
@@ -22,7 +24,7 @@ namespace SorteadorAmigoOculto.Business
             var listaPessoas = PessoaMapper.ToListPessoaEntity(pessoas);
             var dicionarioPessoas = sorteadorBusiness.SortearAmigoOculto(listaPessoas);
             var sorteio = GeraSorteio(dicionarioPessoas);
-            // pega o sorteio e manda e-mail
+            emailBusiness.EnviaSorteio(SorteioMapper.ToSorteioDTO(sorteio));
         }
     }
 }

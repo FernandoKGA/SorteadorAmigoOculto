@@ -14,5 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\SorteadorAmigoOculto.Kernel\SorteadorAmigoOculto.Kernel.csproj"/>
     <ProjectReference Include="..\SorteadorAmigoOculto.Business\SorteadorAmigoOculto.Business.csproj"/>
+    <ProjectReference Include="..\SorteadorAmigoOculto.Configuration\SorteadorAmigoOculto.Configuration.csproj"/>
   </ItemGroup>
 </Project>

@@ -18,3 +18,7 @@
 
 #.vs
 .vs
+
+#emailConfig
+backend/SorteadorAmigoOculto.Configuration/EmailConfig/credentials.json
+backend/SorteadorAmigoOculto.Configuration/EmailConfig/emailConfig.json
